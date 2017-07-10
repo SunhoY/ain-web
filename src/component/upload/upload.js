@@ -19,7 +19,23 @@ export default class Upload extends Component {
         }
     }
 
-    onUploadClick() {
+    onImageChange(selectEvent) {
+        let file = selectEvent.target.files[0];
+        let reader = new FileReader();
+
+        reader.onloadend = () => {
+            this.setState({
+                file: file,
+                previewUrl: reader.result
+            });
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    onUploadClick(e) {
+        e.preventDefault();
+
         let reader = new FileReader();
 
         reader.onloadend = () => {
@@ -29,7 +45,9 @@ export default class Upload extends Component {
         reader.readAsDataURL(this.state.file);
     }
 
-    onSubmitClick() {
+    onSubmitClick(e) {
+        e.preventDefault();
+
         const {s3FileName} = this.state;
         const requestBody = JSON.stringify({fileName: s3FileName});
 
@@ -66,19 +84,6 @@ export default class Upload extends Component {
         this.setState({
             s3FileName: storedFileName
         });
-    }
-
-    onImageChange(imageFile) {
-        let reader = new FileReader();
-
-        reader.onloadend = () => {
-            this.setState({
-                file: imageFile,
-                previewUrl: reader.result
-            });
-        };
-
-        reader.readAsDataURL(imageFile);
     }
 
     render() {
