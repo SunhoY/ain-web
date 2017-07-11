@@ -15,13 +15,13 @@ export default class RegisterView extends Component {
                         <input type="file" id="fileUpload" onChange={this.props.onImageChange}></input>
                         <p className="help-block">선글라스나 모자를 쓰지 않은 정면 사진을 올려주세요.</p>
                     </div>
-                    <button className="btn btn-default btn-lg" style={styles.button} disabled={!this.props.uploadEnabled}
+                    <button type="button" className="btn btn-default btn-lg" style={styles.button} disabled={!this.props.uploadEnabled}
                             onClick={this.props.onUploadClick}>UPLOAD</button>
-                    <button className="btn btn-primary btn-lg" style={styles.button} disabled={!this.props.submitEnabled}
+                    <button type="button" className="btn btn-primary btn-lg" style={styles.button} disabled={!this.props.submitEnabled}
                             onClick={this.props.onSubmitClick}>REGISTER</button>
                     <hr/>
                 </form>
-                <img src={this.props.previewUrl} className="img-rounded" style={styles.preview}></img>
+                <img src={this.props.previewURL} className="img-rounded" style={styles.preview}></img>
             </div>
         )
     }
@@ -32,7 +32,8 @@ RegisterView.propTypes = {
     submitEnabled: PropTypes.bool,
     onUploadClick: PropTypes.func,
     onSubmitClick: PropTypes.func,
-    onImageChange: PropTypes.func
+    onImageChange: PropTypes.func,
+    previewURL: PropTypes.string
 };
 
 const styles = {

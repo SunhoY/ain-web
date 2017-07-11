@@ -9,12 +9,11 @@ export default class Register extends Component {
         this.onImageChange = this.onImageChange.bind(this);
         this.onUploadClick = this.onUploadClick.bind(this);
         this.onSubmitClick = this.onSubmitClick.bind(this);
-        this.setS3FileNameAndEnableSubmit = this.setS3FileNameAndEnableSubmit.bind(this);
-        this.uploadImage = this.uploadImage.bind(this);
+        this.setS3FileNameState = this.setS3FileNameState.bind(this);
 
         this.state = {
             file: "",
-            previewUrl: "",
+            previewURL: "",
             s3FileName: ""
         }
     }
@@ -26,50 +25,21 @@ export default class Register extends Component {
         reader.onloadend = () => {
             this.setState({
                 file: file,
-                previewUrl: reader.result
+                previewURL: reader.result
             });
         };
 
         reader.readAsDataURL(file);
     }
 
-    onUploadClick(e) {
-        e.preventDefault();
-
-        let reader = new FileReader();
-
-        reader.onloadend = () => {
-            this.uploadImage(reader.result, this.state.file.type);
-        };
-
-        reader.readAsDataURL(this.state.file);
-    }
-
-    onSubmitClick(e) {
-        e.preventDefault();
-
-        const {s3FileName} = this.state;
-        const requestBody = JSON.stringify({fileName: s3FileName});
-
-        fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/facebase", {
-            mode: 'cors',
-            headers: {
-                "X-Api-Key": "o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1",
-                "Content-Type": "application/json"
-            },
-            method: 'POST',
-            body: requestBody
-        })
-    }
-
-    uploadImage(dataURL, fileType) {
-        let base64String = dataURL.split(",")[1];
+    onUploadClick() {
+        let base64String = this.state.previewURL.split(",")[1];
         let input = JSON.stringify({
             base64Image: base64String,
-            fileType: fileType
+            fileType: this.state.file.type
         });
 
-        fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/faceimage", {
+        return fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/faceimage", {
             mode: 'cors',
             headers: {
                 "X-Api-Key": "o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1",
@@ -77,10 +47,25 @@ export default class Register extends Component {
             },
             method: 'POST',
             body: input
-        }).then(response => response.json()).then(this.setS3FileNameAndEnableSubmit);
+        }).then(response => response.json()).then(this.setS3FileNameState);
     }
 
-    setS3FileNameAndEnableSubmit({storedFileName}) {
+    onSubmitClick() {
+        const {s3FileName} = this.state;
+        const requestBody = JSON.stringify({fileName: s3FileName});
+
+        return fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/facebase", {
+            mode: 'cors',
+            headers: {
+                "X-Api-Key": "o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1",
+                "Content-Type": "application/json"
+            },
+            method: 'POST',
+            body: requestBody
+        });
+    }
+
+    setS3FileNameState({storedFileName}) {
         this.setState({
             s3FileName: storedFileName
         });
@@ -89,7 +74,7 @@ export default class Register extends Component {
     render() {
         return (
             <RegisterView
-                previewUrl={this.state.previewUrl}
+                previewURL={this.state.previewURL}
                 onImageChange={this.onImageChange}
                 onUploadClick={this.onUploadClick}
                 onSubmitClick={this.onSubmitClick}
