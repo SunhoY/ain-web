@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-export default class UploadView extends Component {
+export default class RegisterView extends Component {
     constructor(props) {
         super(props);
     }
@@ -18,7 +18,7 @@ export default class UploadView extends Component {
                     <button className="btn btn-default btn-lg" style={styles.button} disabled={!this.props.uploadEnabled}
                             onClick={this.props.onUploadClick}>UPLOAD</button>
                     <button className="btn btn-primary btn-lg" style={styles.button} disabled={!this.props.submitEnabled}
-                            onClick={this.props.onSubmitClick}>SUBMIT</button>
+                            onClick={this.props.onSubmitClick}>REGISTER</button>
                     <hr/>
                 </form>
                 <img src={this.props.previewUrl} className="img-rounded" style={styles.preview}></img>
@@ -27,7 +27,7 @@ export default class UploadView extends Component {
     }
 }
 
-UploadView.propTypes = {
+RegisterView.propTypes = {
     uploadEnabled: PropTypes.bool,
     submitEnabled: PropTypes.bool,
     onUploadClick: PropTypes.func,

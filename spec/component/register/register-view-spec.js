@@ -1,19 +1,19 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import UploadView from '../../../src/component/upload/upload-view';
+import RegisterView from '../../../src/component/register/register-view';
 import {expect} from 'chai';
 import sinon from 'sinon';
 
-describe('UploadView Component', () => {
+describe('RegisterView Component', () => {
     it('renders component', () => {
-        const wrapper = shallow(<UploadView/>);
+        const wrapper = shallow(<RegisterView/>);
 
         expect(wrapper.length).to.equal(1);
     });
 
     describe('Upload Button', () => {
         it('disables upload button', () => {
-            const wrapper = shallow(<UploadView uploadEnabled={false}/>);
+            const wrapper = shallow(<RegisterView uploadEnabled={false}/>);
 
             let upload = wrapper.find("button.btn-default");
 
@@ -21,7 +21,7 @@ describe('UploadView Component', () => {
         });
 
         it('enables upload button', () => {
-            const wrapper = shallow(<UploadView uploadEnabled={true}/>);
+            const wrapper = shallow(<RegisterView uploadEnabled={true}/>);
 
             let upload = wrapper.find("button.btn-default");
 
@@ -31,7 +31,7 @@ describe('UploadView Component', () => {
         it('runs onUploadClick on click', () => {
             let handler = sinon.spy();
 
-            const wrapper = shallow(<UploadView onUploadClick={handler}/>);
+            const wrapper = shallow(<RegisterView onUploadClick={handler}/>);
 
             let upload = wrapper.find("button.btn-default");
             upload.simulate("click");
@@ -40,30 +40,30 @@ describe('UploadView Component', () => {
         });
     });
 
-    describe('Submit Button', () => {
+    describe('Register Button', () => {
         it('disables submit button', () => {
-            const wrapper = shallow(<UploadView submitEnabled={false}/>);
+            const wrapper = shallow(<RegisterView submitEnabled={false}/>);
 
-            let submit = wrapper.find("button.btn-primary");
+            let register = wrapper.find("button.btn-primary");
 
-            expect(submit.html().includes('disabled=""')).to.be.true;
+            expect(register.html().includes('disabled=""')).to.be.true;
         });
 
         it('disables submit button', () => {
-            const wrapper = shallow(<UploadView submitEnabled={true}/>);
+            const wrapper = shallow(<RegisterView submitEnabled={true}/>);
 
-            let submit = wrapper.find("button.btn-primary");
+            let register = wrapper.find("button.btn-primary");
 
-            expect(submit.html().includes('disabled=""')).to.be.false;
+            expect(register.html().includes('disabled=""')).to.be.false;
         });
 
         it('runs onSubmitClick on click', () => {
             let handler = sinon.spy();
-            const wrapper = shallow(<UploadView onSubmitClick={handler}/>);
+            const wrapper = shallow(<RegisterView onSubmitClick={handler}/>);
 
-            let submit = wrapper.find("button.btn-primary");
+            let register = wrapper.find("button.btn-primary");
 
-            submit.simulate('click');
+            register.simulate('click');
             
             expect(handler.called).to.be.true;
         });
@@ -72,7 +72,7 @@ describe('UploadView Component', () => {
     describe('File Chooser', () => {
         it('runs onImageChange on file choose', () => {
             let handler = sinon.spy();
-            const wrapper = shallow(<UploadView onImageChange={handler}/>)
+            const wrapper = shallow(<RegisterView onImageChange={handler}/>);
 
             let fileChooser = wrapper.find('input[type="file"]');
 

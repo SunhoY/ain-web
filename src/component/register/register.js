@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import UploadView from "./upload-view";
+import RegisterView from "./register-view";
 import 'whatwg-fetch';
 
-export default class Upload extends Component {
+export default class Register extends Component {
     constructor(props) {
         super(props);
 
@@ -88,7 +88,7 @@ export default class Upload extends Component {
 
     render() {
         return (
-            <UploadView
+            <RegisterView
                 previewUrl={this.state.previewUrl}
                 onImageChange={this.onImageChange}
                 onUploadClick={this.onUploadClick}
