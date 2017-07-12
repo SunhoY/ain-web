@@ -19,7 +19,7 @@ const App = () => (
 
             <Route exact path="/" component={Login} />
             <Route path="/uploadImage" component={Register} />
-            <Route path="/survey" component={Survey} />
+            <Route path="/survey/:gender" render={({match}) => <Survey gender={match.params.gender}/> }/>
         </div>
     </Router>
 );
