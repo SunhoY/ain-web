@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import RegisterView from "./register-view";
 import 'whatwg-fetch';
+import {apiHeaders} from '../../api/ainApiHeaders';
 
 export default class Register extends Component {
     constructor(props) {
@@ -41,10 +42,7 @@ export default class Register extends Component {
 
         return fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/faceimage", {
             mode: 'cors',
-            headers: {
-                "X-Api-Key": "o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1",
-                "Content-Type": "application/json"
-            },
+            headers: apiHeaders,
             method: 'POST',
             body: input
         }).then(response => response.json()).then(this.setS3FileNameState);
@@ -56,10 +54,7 @@ export default class Register extends Component {
 
         return fetch("https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/facebase", {
             mode: 'cors',
-            headers: {
-                "X-Api-Key": "o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1",
-                "Content-Type": "application/json"
-            },
+            headers: apiHeaders,
             method: 'POST',
             body: requestBody
         });

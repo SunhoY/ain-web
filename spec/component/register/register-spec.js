@@ -4,16 +4,10 @@ import Register from "../../../src/component/register/register";
 import {expect} from 'chai';
 import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
+import {examineAPIHeadersAndCORS} from '../../examineAPIHeadersAndCORS';
 
 const FACE_IMAGE_API_URL = "https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/faceimage";
 const FACE_BASE_API_URL = "https://eb94bqr34l.execute-api.us-east-1.amazonaws.com/test/facebase";
-
-const examineHeadersAndCORS = (headers, mode) => {
-    expect(headers['X-Api-Key']).to.equal("o5F4feDYQHUzmkpQcOdH7cE7Gv3TpJ7606S8uLs1");
-    expect(headers['Content-Type']).to.equal("application/json");
-
-    expect(mode).to.equal("cors");
-};
 
 describe('Register Spec', () => {
     beforeEach(() => {
@@ -80,7 +74,7 @@ describe('Register Spec', () => {
 
         it('sets header with API key, Content-Type and mode for cors', () => {
             const {headers, mode} = option;
-            examineHeadersAndCORS(headers, mode);
+            examineAPIHeadersAndCORS(headers, mode);
         });
 
         it('has body with base64Image String and file type', () => {
@@ -133,7 +127,7 @@ describe('Register Spec', () => {
 
         it('sets header with API key, Content-Type and mode for cors', () => {
             const {headers, mode} = option;
-            examineHeadersAndCORS(headers, mode);
+            examineAPIHeadersAndCORS(headers, mode);
         });
     });
 });
